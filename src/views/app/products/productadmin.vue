@@ -138,7 +138,7 @@
           </template>          
           </b-modal>  
 
-          <b-modal id="modal-image" title="Kép felvitele">
+          <b-modal id="modal-categoryimage" title="Kép felvitele">
             <b-form @submit.prevent="categoryimageSubmit">
               <div class="btn btn-primary">
             <!-- Styled -->
@@ -176,18 +176,18 @@
               <i style="cursor:pointer" class="i-Close-Window text-25 text-danger"></i>
               {{ props.row.edit }}</a
             >
-            <a  @click="$bvModal.show('modal-image', categoryupdate(categorysor=props.row))">
+            <a  @click="$bvModal.show('modal-categoryimage', categoryupdate(categorysor=props.row))">
               <i style="cursor:pointer" class="i-File-JPG text-25 text-primary"></i>
               {{ props.row.edit }}</a
             >
 
           </span>
           <span v-else-if="props.column.field == '_id'">
-            <a @click="$bvModal.show('modal-image', categoryupdate(categorysor=props.row))">
+            <a @click="$bvModal.show('modal-categoryimage', categoryupdate(categorysor=props.row))">
               <div style="cursor:pointer" class="ul-widget-app__profile-pic">
                 <img
                   class="profile-picture avatar-sm mb-2 rounded-circle img-fluid"
-                  :src="baseurl+props.row.imageUrl"
+                  :src="props.row.imageUrl"
                   @click="$bvModal.show('modal-categoryupdate', categoryupdate(categorysor=props.row))"
                   
                 >
@@ -405,7 +405,7 @@ components: {
 
   data() {
     return {
-      baseurl:'http://localhost:3000/',
+      baseurl:'http://localhost:3000/dev',
       title:'',
       description:'',
       price:'',
@@ -737,7 +737,7 @@ created () {
             });
           },          
 
-      categoryimageSubmit(editcategorysor) {
+     /* categoryimageSubmit(editcategorysor) {
             var formData = new FormData();
             var self=this;
             formData.append('keresid', this.editcategorysor._id)
@@ -764,7 +764,53 @@ created () {
                 console.log(error);
             });
             
-        },
+        },*/
+
+      async categoryimageSubmit(editcategorysor) {
+          let delimgname = 'categoryimage/'+Date.now()+'_'+this.file.name;
+          let ref = firebase.storage().ref().child(delimgname);
+          let task = ref.put(this.file).then(snapshot => {
+            return snapshot.ref.getDownloadURL()
+          }).then(downloadURL => {
+            return downloadURL;
+          }).catch(error => {
+            console.log('Error uploading image.', error);
+          });
+          let url = await task; // ezt az url-t kell küldeni a backend részére
+          //let delimgname = ref.child;//'brandimage/'+Date.now()+'_'+this.file.name;
+          console.log('file url:', url);
+          console.log('image delete name:', delimgname);
+            /*
+            var formData = new FormData();
+            var self=this;
+            formData.append('keresid', this.editbrandsor._id)
+            formData.append('image', this.file); */
+            axios.put('/product/savecategoryimageurl', {
+                keresid:this.editcategorysor._id, 
+                image:url,
+                deleteimagename:delimgname,},
+                {headers: {
+                    'Authorization': 'Bearer '+ this.idToken,
+                    'Content-Type': 'application/json' //'multipart/form-data' file küldése esetén
+                }
+              })
+            .then(response => {
+                
+                this.uzenet = response.data;
+                this.valaszalert = this.uzenet.message;
+              
+                console.log(this.valaszalert);    
+                this.$bvModal.hide('modal-image');
+                this.categoryList();
+                //this.showAlert(this.valaszalert);
+                this.$bvModal.show('modal-alert');
+            })  
+                  
+            .catch(function (error) {
+                console.log(error);
+            });
+            
+        },  
 
       async brandimageSubmit(editbrandsor) {
           let delimgname = 'brandimage/'+Date.now()+'_'+this.file.name;

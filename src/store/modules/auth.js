@@ -10,8 +10,6 @@ const state = {
     
   };
   
-  
-
   const mutations = {
     //signUserUp: (state, authData) => {state.user = authData;},
     authUser: (state, userData) => {
