@@ -800,7 +800,7 @@ created () {
                 this.valaszalert = this.uzenet.message;
               
                 console.log(this.valaszalert);    
-                this.$bvModal.hide('modal-image');
+                this.$bvModal.hide('modal-categoryimage');
                 this.categoryList();
                 //this.showAlert(this.valaszalert);
                 this.$bvModal.show('modal-alert');
@@ -892,6 +892,14 @@ created () {
                 this.uzenet = response.data;
                 this.valaszalert = this.uzenet.message;
 
+                this.torolt = response.data;
+                this.valaszalert2 = this.torolt.posts.deleteimagename;
+                let desertRef = firebase.storage().ref().child(this.valaszalert2);
+                desertRef.delete().then(function() {
+                // File deleted successfully
+                }).catch(function(error) {
+                // Uh-oh, an error occurred!
+                });
                 console.log(this.valaszalert);    
                 this.$bvModal.hide('modal-3');
                 this.categoryList();   
