@@ -187,7 +187,7 @@
               <div style="cursor:pointer" class="ul-widget-app__profile-pic">
                 <img
                   class="profile-picture avatar-sm mb-2 rounded-circle img-fluid"
-                  :src="baseurl+props.row.imageUrl"
+                  :src="props.row.imageUrl"
                   @click="$bvModal.show('modal-supplierUpdate', supplierupdate(suppliersor=props.row))"
                   
                 >
@@ -231,6 +231,7 @@
 <script>
 import axios from '../../../axios-auth';
 import { mapGetters, mapActions } from 'vuex';
+import firebase from '@/firebase';
 //import { VueGoodTable } from 'vue-good-table';
 export default {
   metaInfo: {
@@ -243,7 +244,7 @@ components: {
 
   data() {
     return {
-      baseurl:'http://localhost:3000/',
+      baseurl:'http://localhost:3000/dev',
       title:'',
       description:'',
       price:'',
@@ -506,15 +507,27 @@ created () {
             });
           },          
 
-      supplierimageSubmit(editsuppliersor) {
-            var formData = new FormData();
-            var self=this;
-            formData.append('keresid', this.editsuppliersor._id)
-            formData.append('image', this.file);
-            axios.put('/supplier/savesupplierimage', formData, {
-                headers: {
+    async  supplierimageSubmit(editsuppliersor) {
+          let delimgname = 'supplierimage/'+Date.now()+'_'+this.file.name;
+          let ref = firebase.storage().ref().child(delimgname);
+          let task = ref.put(this.file).then(snapshot => {
+            return snapshot.ref.getDownloadURL()
+          }).then(downloadURL => {
+            return downloadURL;
+          }).catch(error => {
+            console.log('Error uploading image.', error);
+          });
+          let url = await task; // ezt az url-t kell küldeni a backend részére
+          //let delimgname = ref.child;//'brandimage/'+Date.now()+'_'+this.file.name;
+          console.log('file url:', url);
+          console.log('image delete name:', delimgname);  
+            axios.put('/supplier/savesupplierimageurl', {
+              keresid:this.editsuppliersor._id, 
+                image:url,
+                deleteimagename:delimgname,},
+                {headers: {
                     'Authorization': 'Bearer '+ this.idToken,
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'application/json'
                 }
               })
             .then(response => {
