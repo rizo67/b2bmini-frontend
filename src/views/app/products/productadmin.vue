@@ -306,6 +306,16 @@
           </template>
           
           </b-modal>  
+
+          <b-modal id="modal-delimgbrand" title="Biztosan törölni szeretné ezt a képet?">
+          
+            <button class="btn btn-primary" @click="deljustimgBrand(kivalasztott)">Törlés</button>
+            <template v-slot:modal-footer="{cancel}">
+                <!-- Emulate built in modal footer ok and cancel button actions -->
+            <b-button size="sm" variant="danger" @click="cancel()">Mégsem</b-button>  
+          </template>
+          
+          </b-modal>  
           <!--
           <b-modal id="modal-alert">                     
             <p>
@@ -361,12 +371,12 @@
 
           </span>
           <span v-else-if="props.column.field == '_id'">
-            <a @click="$bvModal.show('modal-image', brandupdate(brandsor=props.row))">
+            <!-- <a @click="$bvModal.show('modal-image', brandupdate(brandsor=props.row))"> -->
               <div style="cursor:pointer" class="ul-widget-app__profile-pic">
                 <img
                   class="profile-picture avatar-sm mb-2 rounded-circle img-fluid"
                   :src="props.row.imageUrl"
-                  @click="$bvModal.show('modal-brandupdate', brandupdate(brandsor=props.row))"                  
+                  @click="$bvModal.show('modal-delimgbrand', branddelete(brandsor=props.row))"                  
                 >
                 <!--  "baseurl+props.row.imageUrl"  (amikor a szerveren tárolt képet jelenítünk meg, akkor ez az url)-->
                 {{ props.row._id }}
@@ -914,6 +924,40 @@ created () {
         categorydelete(categorysor) {
           this.kivalasztott=this.categorysor; 
         },
+
+        deljustimgBrand(kivalasztott) {
+            axios.post('/product/deljustimgbrand', {
+              keresid:this.kivalasztott._id            //keresoneuser az nem más mint a "kulcs vagy key", amire hivatkozva adjuk át az argumentumot, adatot, amit keresünk.
+            },
+             {headers: {
+                    'Authorization': 'Bearer '+ this.idToken,
+                    'Content-Type': 'application/json'
+                }           
+             })
+            .then(response => {
+                this.uzenet = response.data;
+                this.valaszalert = this.uzenet.message;
+                this.torolt = response.data;
+                this.valaszalert2 = this.torolt.posts.deleteimagename;
+                // ide jön a firestore kép törlése rész
+                // Create a reference to the file to delete
+                  let desertRef = firebase.storage().ref().child(this.valaszalert2);
+                // Delete the file
+                    desertRef.delete().then(function() {
+                // File deleted successfully
+                }).catch(function(error) {
+                // Uh-oh, an error occurred!
+                });
+                console.log('Törölt kép:', this.valaszalert2);    
+                this.$bvModal.hide('modal-delimgbrand');
+                this.brandList();   
+                this.$bvModal.show('modal-alert');            
+            })
+            
+            .catch(function (error) {
+                console.log(error);
+            });
+          },     
 
         delBrand(kivalasztott) {
             axios.post('/product/deletebrand', {
