@@ -381,7 +381,7 @@
                 <!--  "baseurl+props.row.imageUrl"  (amikor a szerveren tárolt képet jelenítünk meg, akkor ez az url)-->
                 {{ props.row._id }}
               </div>
-            </a>
+            <!--</a> -->
           </span>
           <span v-else-if="props.column.field == 'title'">
             <a>{{ props.row.title ? props.row.title.toString() : '' }}</a>

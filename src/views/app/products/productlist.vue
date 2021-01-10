@@ -430,7 +430,7 @@
               <div style="cursor:pointer" class="ul-widget-app__profile-pic">
                 <img
                   class="profile-picture avatar-sm mb-2 rounded-circle img-fluid"
-                  :src="baseurl+props.row.imageUrl"
+                  :src="props.row.imageUrl"
                   @click="$bvModal.show('modal-productupdate', updateproduct(productsor=props.row))"
                   
                 >
@@ -459,6 +459,7 @@
 <script>
 import axios from '../../../axios-auth';
 import { mapGetters, mapActions } from 'vuex';
+import firebase from '@/firebase';
 //import { VueGoodTable } from 'vue-good-table';
 export default {
   metaInfo: {
@@ -865,7 +866,7 @@ created () {
         },
 
 
-      productimageSubmit(editproductsor) {
+      /*productimageSubmit(editproductsor) {
             var formData = new FormData();
             var self=this;
             formData.append('keresid', this.editproductsor._id)
@@ -892,9 +893,53 @@ created () {
                 console.log(error);
             });
             
+        },*/
+
+      async productimageSubmit(editproductsor) {
+          let delimgname = 'products/'+Date.now()+'_'+this.file.name;
+          let ref = firebase.storage().ref().child(delimgname);
+          let task = ref.put(this.file).then(snapshot => {
+            return snapshot.ref.getDownloadURL()
+          }).then(downloadURL => {
+            return downloadURL;
+          }).catch(error => {
+            console.log('Error uploading image.', error);
+          });
+          let url = await task; // ezt az url-t kell küldeni a backend részére
+          //let delimgname = ref.child;//'brandimage/'+Date.now()+'_'+this.file.name;
+          console.log('file url:', url);
+          console.log('image delete name:', delimgname);
+            /*
+            var formData = new FormData();
+            var self=this;
+            formData.append('keresid', this.editbrandsor._id)
+            formData.append('image', this.file); */
+            axios.put('/product/saveproductimageurl', {
+                keresid:this.editproductsor._id, 
+                image:url,
+                deleteimagename:delimgname,},
+                {headers: {
+                    'Authorization': 'Bearer '+ this.idToken,
+                    'Content-Type': 'application/json' //'multipart/form-data' file küldése esetén
+                }
+              })
+            .then(response => {
+                
+                this.uzenet = response.data;
+                this.valaszalert = this.uzenet.message;
+              
+                console.log(this.valaszalert);    
+                this.$bvModal.hide('modal-image');
+                this.productList();
+                //this.showAlert(this.valaszalert);
+                this.$bvModal.show('modal-alert');
+            })  
+                  
+            .catch(function (error) {
+                console.log(error);
+            });
+            
         },
-
-
 
 
         handleFileUpload(){
