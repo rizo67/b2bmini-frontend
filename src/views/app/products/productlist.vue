@@ -967,7 +967,15 @@ created () {
             .then(response => {
                 this.uzenet = response.data;
                 this.valaszalert = this.uzenet.message;
-
+                this.torolt = response.data;
+                this.valaszalert2 = this.torolt.posts.deleteimagename;
+                let desertRef = firebase.storage().ref().child(this.valaszalert2);
+                // Delete the file
+                    desertRef.delete().then(function() {
+                // File deleted successfully
+                }).catch(function(error) {
+                // Uh-oh, an error occurred!
+                });
                 console.log(this.valaszalert);    
                 this.$bvModal.hide('modal-3');
                 this.productList();   
