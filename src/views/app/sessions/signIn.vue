@@ -112,18 +112,23 @@ export default {
       bgImage: require("@/assets/images/photo-wide-4.jpg"),
       logo: require("@/assets/images/logo.png"),
       signInImage: require("@/assets/images/photo-long-3.jpg"),
-      loading:null,
+      //loading:false,
     };
   },
   
+  computed: {
+    ...mapGetters(["loggedInUser", "loading", "error"])
+  },
 
   methods: {
     ...mapActions(['loginUser']),
    
     formSubmit() {
+      this.loading = true
       const formData = {  
               email:this.email,
               password:this.password,
+              tolt:true,
                                 
             }
             this.loginUser(formData)

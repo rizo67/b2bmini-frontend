@@ -7,6 +7,7 @@ const state = {
     userId: null,
     user: null,
     organizationid: null,
+    loading: false,
     
   };
   
@@ -24,7 +25,10 @@ const state = {
           state.idToken = null;
           state.userId = null;
           state.organizationid = null;
-        }
+        },
+    setLoading: (state, status) => {
+        state.loading = status
+        },
   };
 
   const actions = {
@@ -68,9 +72,11 @@ const state = {
     },
 
     loginUser: ({ commit, dispatch}, authData) => { //authData az a payload, amit formaData-ként adtam át
-        axios.post('/feed/loginuser', {                      
+      commit("setLoading", true);
+      axios.post('/feed/loginuser', {                      
             email: authData.email,
-            password: authData.password           
+            password: authData.password,
+                     
         })
         .then(res => {
             console.log(res)
@@ -90,6 +96,7 @@ const state = {
         userId: res.data.userId,
         organizationid: res.data.organizationid,
       })
+      commit("setLoading", false);
       dispatch('setLogoutTimer', res.data.expiresIn)
       router.replace({name:'users'})
       //dispatch('storeUser', authData)
@@ -170,6 +177,7 @@ const state = {
     idToken: state => state.idToken,
     organizationid: state => state.organizationid,
     isAuthenticated: state => state.idToken !== null,
+    loading: state => state.loading,
     
    
   };
