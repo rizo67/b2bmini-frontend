@@ -21,7 +21,7 @@
           >
             <a class="nav-item-hold" href="#">
               <i class="nav-icon i-Double-Tap"></i>
-              <span class="nav-text">Pages</span>
+              <span class="nav-text">Profil</span>
             </a>
             <div class="triangle"></div>
           </li>
@@ -241,9 +241,9 @@
         >
 
          <li class="nav-item">
-            <router-link tag="a" class to="/app/pages/blank">
+            <router-link tag="a" class to="/app/pages/ownprofile">
               <i class="nav-icon i-Error-404-Window"></i>
-              <span class="item-name">Blank Page</span>
+              <span class="item-name">Saját profil</span>
             </router-link>
           </li>
 <!-- Submenu saját elem -->

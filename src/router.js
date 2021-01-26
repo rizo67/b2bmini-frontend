@@ -63,9 +63,9 @@ const routes = [
             meta: { requiresAuth: true }
           },
           {
-            path: "blank",
-            name: "blank",
-            component: () => import("./views/app/pages/blank"),
+            path: "ownprofile",
+            name: "ownprofile",
+            component: () => import("./views/app/pages/ownprofile"),
             meta: { requiresAuth: true }
           },
           {
