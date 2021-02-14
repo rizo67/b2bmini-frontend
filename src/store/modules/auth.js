@@ -174,16 +174,19 @@ const state = {
   const getters = {
     //eredmeny: state => state.eredmeny,
     user: state => state.user,
+    userId: state => state.userId,
     idToken: state => state.idToken,
     organizationid: state => state.organizationid,
     isAuthenticated: state => state.idToken !== null,
     loading: state => state.loading,
+    //userId: rootState => rootState.userId,
     
    
   };
   
   export default {
     state,
+    //rootState,
     getters,
     actions,
     mutations

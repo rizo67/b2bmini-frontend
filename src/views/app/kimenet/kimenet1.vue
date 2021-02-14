@@ -13,7 +13,7 @@
     <breadcumb :page="'Kimenet1'" :folder="'Kimenet'" />
         <h2>Eredmény oldal</h2>
         <p>{{ eredmeny }}</p>
-        <p>{{ idToken }}</p>
+        <p>{{ proba }}</p>
         <p>{{ szoveg }}</p>
         <p style="color: red;">KIJELÖLÉS EREDMÉNYE: {{ kijelolt.email }}, {{ kijelolt.country }} </p>
 
@@ -51,7 +51,7 @@ export default {
 },
 
 computed: {
-    ...mapGetters(['eredmeny', 'kijelolt', 'idToken'])
+    ...mapGetters(['eredmeny', 'kijelolt', 'proba',])
   },
 
 watch: {
@@ -63,7 +63,7 @@ watch: {
 },
 
 methods:{
-    ...mapActions(['setVisszajelzes', 'setSzorzat']),
+    ...mapActions(['setVisszajelzes', 'setSzorzat', 'setproba']),
 
     jelzes() {
       
@@ -79,6 +79,7 @@ methods:{
     var c = parseInt(szam_a) * parseInt(szam_b)
 
     this.setSzorzat(c);
+    this.setproba();
     console.log(c,);
     },
 

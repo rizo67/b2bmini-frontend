@@ -615,7 +615,7 @@ created () {
 
 
   methods: {
-    ...mapActions(['setKijelolt', 'logout']),
+    ...mapActions(['setKijelolt', 'logout', 'logoutprofile']),
 
     addFile() {
       console.log("hello");
@@ -630,6 +630,8 @@ created () {
       var szoveg = "siker"
       console.log(szoveg)
       this.logout();
+      this.logoutprofile();
+
 
       //this.$router.push("/app/sessions/signIn");
     },

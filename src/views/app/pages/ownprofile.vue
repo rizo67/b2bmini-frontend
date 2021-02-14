@@ -7,8 +7,8 @@
             <div class="header-cover" style="background-image: url(http://gull-html-laravel.ui-lib.com/assets/images/photo-wide-5.jpeg"></div>
                 <div class="user-info">
                     <img class="profile-picture avatar-lg mb-2" src="http://gull-html-laravel.ui-lib.com/assets/images/faces/1.jpg" alt="">
-                        <p class="m-0 text-24">Timothy Carlson</p>
-                        <p class="text-muted m-0">Digital Marketer</p>
+                        <p class="m-0 text-24">{{ lddusername }}</p>
+                        <p class="text-muted m-0">{{ organizationid }}</p>
             </div>
             <div class="card-body">
                 <div>
@@ -458,11 +458,46 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
      metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
     title: "Profile"
   },
-}
+
+data() {
+    return {
+    company:'',
+    };
+  },
+  
+  computed: {
+    ...mapGetters(['lddusername', 'idToken', 'userId', 'organizationid']),
+    
+  },
+
+mounted () {
+          this.setlddusername();
+        },
+
+  methods: {
+    ...mapActions(['setlddusername']),
+  },
+
+    senduserid() {
+      this.loading = true
+      const formData = {  
+              email:this.email,
+              password:this.password,
+              tolt:true,
+                                
+            }
+            this.loginUser(formData)
+            
+      
+    },
+
+};
 </script>
 

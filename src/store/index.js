@@ -11,6 +11,7 @@ import verticalSidebar from "./modules/verticalSidebar";
 import scrumboard from "./modules/scrumboard";
 import matek from "./modules/matek";
 import auth from "./modules/auth";
+import profile from "./modules/profile";
 
 
 // Load Vuex
@@ -29,6 +30,7 @@ export default new Vuex.Store({
     verticalSidebar,
     scrumboard,
     matek,
-    auth
+    auth,
+    profile
   }
 });
