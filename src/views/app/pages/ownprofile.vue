@@ -8,7 +8,7 @@
                 <div class="user-info">
                     <img class="profile-picture avatar-lg mb-2" src="http://gull-html-laravel.ui-lib.com/assets/images/faces/1.jpg" alt="">
                         <p class="m-0 text-24">{{ lddusername }}</p>
-                        <p class="text-muted m-0">{{ organizationid }}</p>
+                        <p class="text-muted m-0">{{ lddcompanyname }}</p>
             </div>
             <div class="card-body">
                 <div>
@@ -473,16 +473,17 @@ data() {
   },
   
   computed: {
-    ...mapGetters(['lddusername', 'idToken', 'userId', 'organizationid']),
+    ...mapGetters(['lddusername', 'lddcompanyname', 'idToken', 'userId', 'organizationid']),
     
   },
 
 mounted () {
           this.setlddusername();
+          this.setlddcompanyname();
         },
 
   methods: {
-    ...mapActions(['setlddusername']),
+    ...mapActions(['setlddusername', 'setlddcompanyname']),
   },
 
     senduserid() {

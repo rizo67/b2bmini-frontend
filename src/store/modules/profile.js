@@ -31,11 +31,32 @@ const actions = {
           console.log(error);
       });   
     },
-    
-    setlddcompanyname: ({ commit }, payload) => {commit('setlddcompanyname', payload);},
+
+    setlddcompanyname: ({commit, state, rootState}) => {
+      const loadedorgid = rootState.auth.organizationid;
+      const idToken = rootState.auth.idToken;
+      console.log(rootState.auth.organizationid);
+      axios.post('/supplier/loadedsupplier', {
+        keresid:loadedorgid           
+      },
+      {headers: {
+              'Authorization': 'Bearer '+ idToken,
+              'Content-Type': 'application/json'
+          }
+       })
+      .then(response => {
+        commit('setlddcompanyname', response.data.posts.title);
+        console.log(state.lddcompanyname); 
+      })      
+      .catch(function (error) {
+          console.log(error);
+      });   
+    },
+
     logoutprofile: ({ commit }) => {commit('setlddusername', null);},
 
   };
+
 
 const getters = {
     lddusername: state => state.lddusername,

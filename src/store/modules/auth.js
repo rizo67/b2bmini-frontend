@@ -115,9 +115,11 @@ const state = {
         return
       }
       const userId = localStorage.getItem('userId')
+      const organizationid = localStorage.getItem('organizationid')
       commit('authUser', {
         token: token,
         userId: userId,
+        organizationid: organizationid,
         
       })
       router.replace({name:'users'}) //az oldal frissítése után ide tér vissza, ha van érvényes token
@@ -186,7 +188,6 @@ const state = {
   
   export default {
     state,
-    //rootState,
     getters,
     actions,
     mutations
