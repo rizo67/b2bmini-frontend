@@ -9,7 +9,53 @@
                     <img class="profile-picture avatar-lg mb-2" src="http://gull-html-laravel.ui-lib.com/assets/images/faces/1.jpg" alt="">
                         <p class="m-0 text-24">{{ lddusername }}</p>
                         <p class="text-muted m-0">{{ lddcompanyname }}</p>
+                        <p class="text-muted m-0">{{ lddrole }}</p>
             </div>
+
+ <b-button variant="primary" class="btn-rounded d-none d-sm-block" v-b-modal.modal-1
+            ><i class="i-Add-User text-white mr-2"> </i>Kérjük válasszon milyen minőségben regisztrál
+          </b-button>
+
+<b-modal id="modal-1" title="Kérjük válasszon milyen minőségben regisztrál">
+            <b-form>
+                  <b-form-group>      
+                <label class="radio radio-outline-primary">
+                    <input type="radio" v-model="selected"  value="A" name="radio" />
+                        <span>Szállító</span>
+                        <span class="checkmark"></span>
+                </label>
+                <label class="radio radio-outline-primary">
+                    <input type="radio" v-model="selected" value="B" name="radio" />
+                        <span>Vevő</span>
+                        <span class="checkmark"></span>
+                </label>
+                <label class="radio radio-outline-primary">
+                    <input type="radio" v-model="selected" value="C" name="radio" />
+                        <span>Piactér üzemeltető</span>
+                        <span class="checkmark"></span>
+                </label>
+            </b-form-group>
+
+              <div class="form-group row">
+                <div class="col-sm-10">
+                
+               <button @click="sendrole()"  class="btn btn-primary">Tovább</button>
+                </div>
+              </div>
+            </b-form>
+
+             <span>value: {{selected}}</span>      
+
+      <template v-slot:modal-footer="{cancel}">
+      <!-- Emulate built in modal footer ok and cancel button actions -->
+          <b-button size="sm" variant="danger" @click="cancel()">
+          Bezár
+          </b-button>    
+      </template>           
+          </b-modal>
+
+
+
             <div class="card-body">
                 <div>
                     <b-tabs content-class="mt-3" align="center">
@@ -463,28 +509,51 @@ import { mapGetters, mapActions } from "vuex";
 export default {
      metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
-    title: "Profile"
+    title: "Profile",
   },
 
 data() {
     return {
     company:'',
+    selected:'',
+    pick:'',
+    value:'',
     };
   },
   
   computed: {
-    ...mapGetters(['lddusername', 'lddcompanyname', 'idToken', 'userId', 'organizationid']),
+    ...mapGetters(['lddusername', 'lddcompanyname', 'lddrole', 'idToken', 'userId', 'organizationid']),
     
   },
 
 mounted () {
-          this.setlddusername();
+          this.setlddusersdata(); // ezek indítják el a függvényeket az oldal betöltésekor- a profile.js store-ban
           this.setlddcompanyname();
         },
 
+created () {
+          
+        },
+
+watch: {
+        lddrole() {
+          if (this.lddrole == 'new')  {
+        console.log(this.lddrole);
+        this.$bvModal.show('modal-1');
+          }
+        return
+     
+        },
+        
+        selected() {
+            this.kuld();                 
+        },
+
+},        
+
   methods: {
-    ...mapActions(['setlddusername', 'setlddcompanyname']),
-  },
+    ...mapActions(['setlddusersdata', 'setlddcompanyname']), // ezek indítják el a függvényeket az oldal betöltésekor
+  
 
     senduserid() {
       this.loading = true
@@ -496,9 +565,17 @@ mounted () {
             }
             this.loginUser(formData)
             
+    },
+
+   kuld() {
+       
+      console.log(this.selected);
+            
       
     },
 
+  }
 };
+
 </script>
 

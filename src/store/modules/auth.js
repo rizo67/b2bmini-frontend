@@ -46,8 +46,8 @@ const state = {
             password: authData.password,
             confirmPassword: authData.confirmPassword,
             organizationid: state.organizationid,
-            role:'admin',
-            vendor:'supplier',
+            role:'new',           //'admin'
+            vendor:'supplier',    //'supplier'
             
         })
         .then(res => {
@@ -98,7 +98,7 @@ const state = {
       })
       commit("setLoading", false);
       dispatch('setLogoutTimer', res.data.expiresIn)
-      router.replace({name:'users'})
+      router.replace({name:'ownprofile'})
       //dispatch('storeUser', authData)
         })
     .catch(error => console.log(error))   
@@ -122,7 +122,7 @@ const state = {
         organizationid: organizationid,
         
       })
-      router.replace({name:'users'}) //az oldal frissítése után ide tér vissza, ha van érvényes token
+      router.replace({name:'ownprofile'}) //az oldal frissítése után ide tér vissza, ha van érvényes token
       
     },
 

@@ -3,15 +3,20 @@ import axios from '../../axios-auth';
 const state = {
     lddusername: null, //loaded user name
     lddcompanyname: null, //loaded company name belong to user
+    lddrole:null
   };
 
 const mutations = {
-    setlddusername: (state, payload) => {state.lddusername = payload;},
+    setlddusersdata: (state, payload) => {
+      state.lddusername = payload.lddusername
+      state.lddrole = payload.lddrole
+    },
     setlddcompanyname: (state, payload) => {state.lddcompanyname = payload;},
+    //setlddrole: (state, payload) => {state.lddrole = payload;},
   };
 
 const actions = {
-    setlddusername: ({commit, state, rootState}) => {
+    setlddusersdata: ({commit, state, rootState}) => {
       const loadeduserid = rootState.auth.userId;
       const idToken = rootState.auth.idToken;
       axios.post('/feed/findloadeduser', {
@@ -23,8 +28,12 @@ const actions = {
           }
        })
       .then(response => {
-        commit('setlddusername', response.data.posts.name);
-        console.log(state.lddusername);  
+        commit('setlddusersdata', {
+          lddusername:response.data.posts.name,
+          lddrole:response.data.posts.role
+        }); //így kell írni, ha egyszerre több adat van (objektumban)
+        //commit('setlddrole', response.data.posts.role); így kell írni, ha csak egy adat van
+        
                   
       })      
       .catch(function (error) {
@@ -46,21 +55,30 @@ const actions = {
        })
       .then(response => {
         commit('setlddcompanyname', response.data.posts.title);
-        console.log(state.lddcompanyname); 
+        
       })      
       .catch(function (error) {
           console.log(error);
       });   
     },
 
-    logoutprofile: ({ commit }) => {commit('setlddusername', null);},
+
+    logoutprofile: ({ commit }) => {
+      commit('setlddusersdata', {
+        lddusername:null,
+        lddrole:null}
+      );
+      commit('setlddcompanyname', null);
+    },
 
   };
+  
 
 
 const getters = {
     lddusername: state => state.lddusername,
     lddcompanyname: state => state.lddcompanyname,
+    lddrole: state => state.lddrole,
   };
   
 
