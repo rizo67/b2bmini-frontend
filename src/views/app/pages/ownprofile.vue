@@ -39,7 +39,7 @@
               <div class="form-group row">
                 <div class="col-sm-10">
                 
-               <button @click="sendrole()"  class="btn btn-primary">Tovább</button>
+               <button @click="kuldes()"  class="btn btn-primary">Tovább</button>
                 </div>
               </div>
             </b-form>
@@ -518,6 +518,8 @@ data() {
     selected:'',
     pick:'',
     value:'',
+    role:"",
+    vendor:"",
     };
   },
   
@@ -546,13 +548,13 @@ watch: {
         },
         
         selected() {
-            this.kuld();                 
+            this.chooserole();                 
         },
 
 },        
 
   methods: {
-    ...mapActions(['setlddusersdata', 'setlddcompanyname']), // ezek indítják el a függvényeket az oldal betöltésekor
+    ...mapActions(['setlddusersdata', 'setlddcompanyname', 'sendrole']), // ezek indítják el a függvényeket az oldal betöltésekor
   
 
     senduserid() {
@@ -567,12 +569,41 @@ watch: {
             
     },
 
-   kuld() {
-       
-      console.log(this.selected);
-            
-      
+   chooserole() {
+       switch(this.selected) {
+            case"A":
+                this.role = "admin";
+                this.vendor = "supplier";
+            break;
+            case "B":
+                this.role = "basic";
+                this.vendor = "customer";
+             break;
+            case "C": 
+                this.role = "superadmin";
+                this.vendor = "marketplace";
+            break;  
+            }
+            console.log(this.role);
+            console.log(this.vendor);
+        const formData = {  
+              role:this.role,
+              vendor:this.vendor,
+              tolt:true,
+                                
+            }
+            this.sendrole(formData)
+      },
+
+    kuldes(){
+        this.lddrole = "used";
+        this.$bvModal.hide('modal-1');
+        console.log(this.role);
+                console.log(this.vendor);
+        return
+        
     },
+
 
   }
 };

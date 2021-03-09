@@ -3,7 +3,8 @@ import axios from '../../axios-auth';
 const state = {
     lddusername: null, //loaded user name
     lddcompanyname: null, //loaded company name belong to user
-    lddrole:null
+    lddrole:null,
+    vendor:null,
   };
 
 const mutations = {
@@ -12,6 +13,10 @@ const mutations = {
       state.lddrole = payload.lddrole
     },
     setlddcompanyname: (state, payload) => {state.lddcompanyname = payload;},
+    updateroles: (state, payload) => {
+      state.lddrole = payload.lddrole
+      state.lddvendor = payload.lddvendor
+    },
     //setlddrole: (state, payload) => {state.lddrole = payload;},
   };
 
@@ -42,9 +47,11 @@ const actions = {
     },
 
     setlddcompanyname: ({commit, state, rootState}) => {
+      //if (!rootState.auth.organizationid) {
       const loadedorgid = rootState.auth.organizationid;
       const idToken = rootState.auth.idToken;
       console.log(rootState.auth.organizationid);
+      
       axios.post('/supplier/loadedsupplier', {
         keresid:loadedorgid           
       },
@@ -54,12 +61,16 @@ const actions = {
           }
        })
       .then(response => {
+        console.log(response.data);
         commit('setlddcompanyname', response.data.posts.title);
+        console.log(response.data.posts);
+      
         
       })      
       .catch(function (error) {
           console.log(error);
-      });   
+      }); 
+    //}
     },
 
 
@@ -69,6 +80,40 @@ const actions = {
         lddrole:null}
       );
       commit('setlddcompanyname', null);
+    },
+
+    /*sendrole: ({ commit }, formData) => {
+      console.log("adatok átadva")
+      console.log(formData.role);
+      console.log(formData.vendor);
+      
+    },*/
+
+    sendrole: ({commit, state, rootState}, formData) => {
+      const loadeduserid = rootState.auth.userId;
+      const idToken = rootState.auth.idToken;
+      axios.post('/feed/updateuserrole', {
+        keresid:loadeduserid,
+        role:formData.role,  
+        vendor:formData.vendor,        
+      },
+      {headers: {
+              'Authorization': 'Bearer '+ idToken,
+              'Content-Type': 'application/json'
+          }
+       })
+      .then(response => {
+        commit('updateroles', {
+          lddrole:response.data.posts.role,
+          lddvendor:response.data.posts.vendor,
+        }); //így kell írni, ha egyszerre több adat van (objektumban)
+        //commit('setlddrole', response.data.posts.role); így kell írni, ha csak egy adat van
+        
+                  
+      })      
+      .catch(function (error) {
+          console.log(error);
+      });   
     },
 
   };
