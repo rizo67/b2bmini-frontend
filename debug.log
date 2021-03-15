@@ -56,3 +56,8 @@
 [0306/172038.208:ERROR:registration_protocol_win.cc(102)] CreateFile: A rendszer nem találja a megadott fájlt. (0x2)
 [0307/184907.226:ERROR:registration_protocol_win.cc(102)] CreateFile: A rendszer nem találja a megadott fájlt. (0x2)
 [0308/180933.126:ERROR:registration_protocol_win.cc(102)] CreateFile: A rendszer nem találja a megadott fájlt. (0x2)
+[0309/182535.234:ERROR:registration_protocol_win.cc(102)] CreateFile: A rendszer nem találja a megadott fájlt. (0x2)
+[0309/230405.633:ERROR:registration_protocol_win.cc(102)] CreateFile: A rendszer nem találja a megadott fájlt. (0x2)
+[0314/114410.110:ERROR:registration_protocol_win.cc(102)] CreateFile: A rendszer nem találja a megadott fájlt. (0x2)
+[0314/231842.571:ERROR:registration_protocol_win.cc(102)] CreateFile: A rendszer nem találja a megadott fájlt. (0x2)
+[0315/203012.223:ERROR:registration_protocol_win.cc(102)] CreateFile: A rendszer nem találja a megadott fájlt. (0x2)

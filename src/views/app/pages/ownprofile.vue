@@ -13,42 +13,507 @@
             </div>
 
  <b-button variant="primary" class="btn-rounded d-none d-sm-block" v-b-modal.modal-1
-            ><i class="i-Add-User text-white mr-2"> </i>Kérjük válasszon milyen minőségben regisztrál
+            ><i class="i-Add-User text-white mr-2"> </i
+            >Regiszráció befejezése
           </b-button>
 
-<b-modal id="modal-1" title="Kérjük válasszon milyen minőségben regisztrál">
+<b-modal id="modal-1" title="Üdvözöljük!">Kérjük válassza ki milyen minőségben regisztrál és adja meg profiljának alap adatait<br><br>
             <b-form>
                   <b-form-group>      
                 <label class="radio radio-outline-primary">
-                    <input type="radio" v-model="selected"  value="A" name="radio" />
-                        <span>Szállító</span>
+                    <input type="radio" v-model="selected"  value="A" name="radio" v-b-toggle.collapse-a/>
+                        <span>Szállító (cég/szervezet)</span>
                         <span class="checkmark"></span>
                 </label>
                 <label class="radio radio-outline-primary">
-                    <input type="radio" v-model="selected" value="B" name="radio" />
-                        <span>Vevő</span>
+                    <input type="radio" v-model="selected" value="B" name="radio" v-b-toggle.collapse-b/>
+                        <span>Magánvásárló</span>
                         <span class="checkmark"></span>
                 </label>
                 <label class="radio radio-outline-primary">
-                    <input type="radio" v-model="selected" value="C" name="radio" />
-                        <span>Piactér üzemeltető</span>
+                    <input type="radio" v-model="selected" value="C" name="radio" v-b-toggle.collapse-b/>
+                        <span>Vevő (cég/szervezet)</span>
                         <span class="checkmark"></span>
                 </label>
+                <label class="radio radio-outline-primary">
+                    <input type="radio" v-model="selected" value="D" name="radio" v-b-toggle.collapse-c/>
+                        <span>Piactér üzemeltető (cég)</span>
+                        <span class="checkmark"></span>
+                </label>
+
+                
+        
+          <div>
+            
+          <b-collapse id="collapse-a" v-model="visiblea">
+            <div class="form-group row">
+              <label for="inputCompanyName" class="col-sm-2 col-form-label"
+                >CÉG NEVE</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputCompanyName"
+                  placeholder="Cég vagy szervezet neve"
+                />
+              </div>
+            </div>  
+            <div class="form-group row">
+              <label for="inputTaxNumber" class="col-sm-2 col-form-label"
+                >ADÓSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputTaxNumber"
+                  placeholder="Cég vagy szervezet adószáma"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputLastName" class="col-sm-2 col-form-label"
+                >VEZETÉKNÉV</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputLastName"
+                  placeholder="Vezetéknév"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputFirstName" class="col-sm-2 col-form-label"
+                >KERESZTNÉV</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputFirstName"
+                  placeholder="Keresztnév"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputCity" class="col-sm-2 col-form-label"
+                >TELEPÜLÉS</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputCity"
+                  placeholder="Település neve"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputAddress" class="col-sm-2 col-form-label"
+                >UTCA, HÁZSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputAddress"
+                  placeholder="Utca, házszám"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputOther" class="col-sm-2 col-form-label"
+                >EGYÉB ADAT</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputOther"
+                  placeholder="Emelet, ajtó, egyéb adat"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputZipCode" class="col-sm-2 col-form-label"
+                >IRÁNYÍTÓSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputZipCode"
+                  placeholder="Irányítószám"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputTel" class="col-sm-2 col-form-label"
+                >TELEFONSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputTel"
+                  placeholder="Telefonszám"
+                />
+              </div>
+            </div>       
+          </b-collapse>
+          <b-collapse id="collapse-b" v-model="visibleb" >
+            <div class="form-group row">
+              <label for="inputLastName" class="col-sm-2 col-form-label"
+                >VEZETÉKNÉV</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputLastName"
+                  placeholder="Vezetéknév"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputFirstName" class="col-sm-2 col-form-label"
+                >KERESZTNÉV</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputFirstName"
+                  placeholder="Keresztnév"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputCity" class="col-sm-2 col-form-label"
+                >TELEPÜLÉS</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputCity"
+                  placeholder="Település neve"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputAddress" class="col-sm-2 col-form-label"
+                >UTCA, HÁZSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputAddress"
+                  placeholder="Utca, házszám"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputOther" class="col-sm-2 col-form-label"
+                >EGYÉB ADAT</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputOther"
+                  placeholder="Emelet, ajtó, egyéb adat"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputZipCode" class="col-sm-2 col-form-label"
+                >IRÁNYÍTÓSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputZipCode"
+                  placeholder="Irányítószám"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputTel" class="col-sm-2 col-form-label"
+                >TELEFONSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputTel"
+                  placeholder="Telefonszám"
+                />
+              </div>
+            </div>       
+          </b-collapse>
+          <b-collapse id="collapse-c" v-model="visiblec" >
+            <div class="form-group row">
+              <label for="inputCompanyName" class="col-sm-2 col-form-label"
+                >CÉG NEVE</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputCompanyName"
+                  placeholder="Cég vagy szervezet neve"
+                />
+              </div>
+            </div>  
+            <div class="form-group row">
+              <label for="inputTaxNumber" class="col-sm-2 col-form-label"
+                >ADÓSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputTaxNumber"
+                  placeholder="Cég vagy szervezet adószáma"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputLastName" class="col-sm-2 col-form-label"
+                >VEZETÉKNÉV</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputLastName"
+                  placeholder="Vezetéknév"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputFirstName" class="col-sm-2 col-form-label"
+                >KERESZTNÉV</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputFirstName"
+                  placeholder="Keresztnév"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputCity" class="col-sm-2 col-form-label"
+                >TELEPÜLÉS</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputCity"
+                  placeholder="Település neve"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputAddress" class="col-sm-2 col-form-label"
+                >UTCA, HÁZSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputAddress"
+                  placeholder="Utca, házszám"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputOther" class="col-sm-2 col-form-label"
+                >EGYÉB ADAT</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputOther"
+                  placeholder="Emelet, ajtó, egyéb adat"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputZipCode" class="col-sm-2 col-form-label"
+                >IRÁNYÍTÓSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputZipCode"
+                  placeholder="Irányítószám"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputTel" class="col-sm-2 col-form-label"
+                >TELEFONSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputTel"
+                  placeholder="Telefonszám"
+                />
+              </div>
+            </div>       
+          </b-collapse>
+          <b-collapse id="collapse-c" v-model="visibled" >
+            <div class="form-group row">
+              <label for="inputCompanyName" class="col-sm-2 col-form-label"
+                >CÉG NEVE</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputCompanyName"
+                  placeholder="Cég vagy szervezet neve"
+                />
+              </div>
+            </div>  
+            <div class="form-group row">
+              <label for="inputTaxNumber" class="col-sm-2 col-form-label"
+                >ADÓSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputTaxNumber"
+                  placeholder="Cég vagy szervezet adószáma"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputLastName" class="col-sm-2 col-form-label"
+                >VEZETÉKNÉV</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputLastName"
+                  placeholder="Vezetéknév"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputFirstName" class="col-sm-2 col-form-label"
+                >KERESZTNÉV</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputFirstName"
+                  placeholder="Keresztnév"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputCity" class="col-sm-2 col-form-label"
+                >TELEPÜLÉS</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputCity"
+                  placeholder="Település neve"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputAddress" class="col-sm-2 col-form-label"
+                >UTCA, HÁZSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputAddress"
+                  placeholder="Utca, házszám"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputOther" class="col-sm-2 col-form-label"
+                >EGYÉB ADAT</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputOther"
+                  placeholder="Emelet, ajtó, egyéb adat"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputZipCode" class="col-sm-2 col-form-label"
+                >IRÁNYÍTÓSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputZipCode"
+                  placeholder="Irányítószám"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputTel" class="col-sm-2 col-form-label"
+                >TELEFONSZÁM</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputTel"
+                  placeholder="Telefonszám"
+                />
+              </div>
+            </div>       
+          </b-collapse>
+          </div>
+      
+
+
             </b-form-group>
 
               <div class="form-group row">
                 <div class="col-sm-10">
                 
-               <button @click="kuldes()"  class="btn btn-primary">Tovább</button>
+              <!-- <button @click="$router.push({name:'productlist'})" class="btn btn-primary">Tovább</button> -->
                 </div>
               </div>
             </b-form>
 
              <span>value: {{selected}}</span>      
 
-      <template v-slot:modal-footer="{cancel}">
+      <template v-slot:modal-footer>
       <!-- Emulate built in modal footer ok and cancel button actions -->
-          <b-button size="sm" variant="danger" @click="cancel()">
+          <b-button size="sm" variant="danger" @click="$router.push({name:'productlist'})"> <!-- így kell egy másik componensre (menü) ugrani -->
           Bezár
           </b-button>    
       </template>           
@@ -345,6 +810,7 @@
               </b-tab>
               
               <b-tab title="Contact">
+                  <!--<blanky></blanky>-->
                 <b-form @submit="onSubmit" @reset="onReset" v-if="show">
                   <b-form-group
                     id="input-group-1"
@@ -505,21 +971,27 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+//import blanky from './blanky';
 
 export default {
      metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
     title: "Profile",
   },
+//components:{blanky},
 
 data() {
     return {
     company:'',
-    selected:'',
+    selected:'B',
     pick:'',
     value:'',
     role:"",
     vendor:"",
+    visiblea: false,
+    visibleb: true,
+    visiblec: false,
+    visiblec: false,
     };
   },
   
@@ -571,17 +1043,37 @@ watch: {
 
    chooserole() {
        switch(this.selected) {
-            case"A":
+            case"A": //szállító
                 this.role = "admin";
                 this.vendor = "supplier";
+                this.visiblea =true;
+                this.visibleb =false;
+                this.visiblec =false;
+                this.visibled =false;
             break;
-            case "B":
+            case "B": //magánvásárló
                 this.role = "basic";
-                this.vendor = "customer";
+                this.vendor = "privatecustomer";
+                this.visiblea =false;
+                this.visibleb =true;
+                this.visiblec =false;
+                this.visibled =false;
              break;
-            case "C": 
+            case "C": //céges vevő
+                this.role = "basic";
+                this.vendor = "companycustomer";
+                this.visiblea =false;
+                this.visibleb =false;
+                this.visiblec =true;
+                this.visibled =false;
+            break; 
+            case "D": //piactér üzemeltető
                 this.role = "superadmin";
                 this.vendor = "marketplace";
+                this.visiblea =false;
+                this.visibleb =false;
+                this.visiblec =false;
+                this.visibled =true;
             break;  
             }
             console.log(this.role);
