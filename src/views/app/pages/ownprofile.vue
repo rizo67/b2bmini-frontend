@@ -18,7 +18,7 @@
           </b-button>
 
 <b-modal id="modal-1" title="Üdvözöljük!">Kérjük válassza ki milyen minőségben regisztrál és adja meg profiljának alap adatait<br><br>
-            <b-form>
+            <b-form @submit.prevent="chooserole">
                   <b-form-group>      
                 <label class="radio radio-outline-primary">
                     <input type="radio" v-model="selected"  value="A" name="radio" v-b-toggle.collapse-a/>
@@ -53,6 +53,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgname"
                   class="form-control"
                   id="inputCompanyName"
                   placeholder="Cég vagy szervezet neve"
@@ -66,6 +67,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgtaxnumber"
                   class="form-control"
                   id="inputTaxNumber"
                   placeholder="Cég vagy szervezet adószáma"
@@ -79,6 +81,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="lastname"
                   class="form-control"
                   id="inputLastName"
                   placeholder="Vezetéknév"
@@ -92,6 +95,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="firstname"
                   class="form-control"
                   id="inputFirstName"
                   placeholder="Keresztnév"
@@ -105,6 +109,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgcity"
                   class="form-control"
                   id="inputCity"
                   placeholder="Település neve"
@@ -118,6 +123,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgstreet"
                   class="form-control"
                   id="inputAddress"
                   placeholder="Utca, házszám"
@@ -131,6 +137,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgother"
                   class="form-control"
                   id="inputOther"
                   placeholder="Emelet, ajtó, egyéb adat"
@@ -144,6 +151,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgzipcode"
                   class="form-control"
                   id="inputZipCode"
                   placeholder="Irányítószám"
@@ -157,6 +165,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgphone"
                   class="form-control"
                   id="inputTel"
                   placeholder="Telefonszám"
@@ -172,6 +181,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="lastname"
                   class="form-control"
                   id="inputLastName"
                   placeholder="Vezetéknév"
@@ -185,6 +195,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="firstname"
                   class="form-control"
                   id="inputFirstName"
                   placeholder="Keresztnév"
@@ -198,6 +209,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgcity"
                   class="form-control"
                   id="inputCity"
                   placeholder="Település neve"
@@ -211,6 +223,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgstreet"
                   class="form-control"
                   id="inputAddress"
                   placeholder="Utca, házszám"
@@ -224,6 +237,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgother"
                   class="form-control"
                   id="inputOther"
                   placeholder="Emelet, ajtó, egyéb adat"
@@ -237,6 +251,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgzipcode"
                   class="form-control"
                   id="inputZipCode"
                   placeholder="Irányítószám"
@@ -250,6 +265,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgphone"
                   class="form-control"
                   id="inputTel"
                   placeholder="Telefonszám"
@@ -265,6 +281,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgname"
                   class="form-control"
                   id="inputCompanyName"
                   placeholder="Cég vagy szervezet neve"
@@ -278,6 +295,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgtaxnumber"
                   class="form-control"
                   id="inputTaxNumber"
                   placeholder="Cég vagy szervezet adószáma"
@@ -291,6 +309,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="lastname"
                   class="form-control"
                   id="inputLastName"
                   placeholder="Vezetéknév"
@@ -304,6 +323,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="firstname"
                   class="form-control"
                   id="inputFirstName"
                   placeholder="Keresztnév"
@@ -317,6 +337,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgcity"
                   class="form-control"
                   id="inputCity"
                   placeholder="Település neve"
@@ -330,6 +351,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgstreet"
                   class="form-control"
                   id="inputAddress"
                   placeholder="Utca, házszám"
@@ -343,6 +365,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgother"
                   class="form-control"
                   id="inputOther"
                   placeholder="Emelet, ajtó, egyéb adat"
@@ -356,6 +379,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgzipcode"
                   class="form-control"
                   id="inputZipCode"
                   placeholder="Irányítószám"
@@ -369,6 +393,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgphone"
                   class="form-control"
                   id="inputTel"
                   placeholder="Telefonszám"
@@ -384,6 +409,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgname"
                   class="form-control"
                   id="inputCompanyName"
                   placeholder="Cég vagy szervezet neve"
@@ -397,6 +423,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgtaxnumber"
                   class="form-control"
                   id="inputTaxNumber"
                   placeholder="Cég vagy szervezet adószáma"
@@ -410,6 +437,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="lastname"
                   class="form-control"
                   id="inputLastName"
                   placeholder="Vezetéknév"
@@ -423,6 +451,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="firstname"
                   class="form-control"
                   id="inputFirstName"
                   placeholder="Keresztnév"
@@ -436,6 +465,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgcity"
                   class="form-control"
                   id="inputCity"
                   placeholder="Település neve"
@@ -449,6 +479,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgstreet"
                   class="form-control"
                   id="inputAddress"
                   placeholder="Utca, házszám"
@@ -462,6 +493,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgother"
                   class="form-control"
                   id="inputOther"
                   placeholder="Emelet, ajtó, egyéb adat"
@@ -475,6 +507,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgzipcode"
                   class="form-control"
                   id="inputZipCode"
                   placeholder="Irányítószám"
@@ -488,6 +521,7 @@
               <div class="col-sm-10">
                 <input
                   type="text"
+                  v-model="orgphone"
                   class="form-control"
                   id="inputTel"
                   placeholder="Telefonszám"
@@ -503,8 +537,8 @@
 
               <div class="form-group row">
                 <div class="col-sm-10">
-                
-              <!-- <button @click="$router.push({name:'productlist'})" class="btn btn-primary">Tovább</button> -->
+              <button type="submit" class="btn btn-primary">Tovább</button>
+              
                 </div>
               </div>
             </b-form>
@@ -991,7 +1025,17 @@ data() {
     visiblea: false,
     visibleb: true,
     visiblec: false,
-    visiblec: false,
+    visibled: false,
+    orgname:"",
+    orgtaxnumber:"",
+    lastname:"",
+    firstname:"",
+    orgcity:"",
+    orgstreet:"",
+    orgzipcode:"",
+    orgother:"",
+    orgphone:"",
+  
     };
   },
   
@@ -1076,15 +1120,28 @@ watch: {
                 this.visibled =true;
             break;  
             }
-            console.log(this.role);
-            console.log(this.vendor);
-        const formData = {  
+            const formData = {  
               role:this.role,
               vendor:this.vendor,
+              orgname:this.orgname,
+              orgtaxnumber:this.orgtaxnumber,
+              lastname:this.lastname,
+              firstname:this.firstname,
+              orgcity:this.orgcity,
+              orgstreet:this.orgstreet,
+              orgzipcode:this.orgzipcode,
+              orgother:this.orgother,
+              orgphone:this.orgphone,
               tolt:true,
                                 
             }
             this.sendrole(formData)
+            console.log(this.role);
+            console.log(this.vendor);
+            console.log(this.orgname);
+            console.log(this.orgtaxnumber, this.lastname, this.firstname);
+            console.log(this.orgcity, this.orgstreet, this.orgzipcode, this.orgother, this.orgphone);
+            //this.$bvModal.hide('modal-1');
       },
 
     kuldes(){

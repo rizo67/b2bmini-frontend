@@ -4,7 +4,7 @@ const state = {
     lddusername: null, //loaded user name
     lddcompanyname: null, //loaded company name belong to user
     lddrole:null,
-    vendor:null,
+    lddvendor:null,
   };
 
 const mutations = {
@@ -90,12 +90,21 @@ const actions = {
     },*/
 
     sendrole: ({commit, state, rootState}, formData) => {
-      const loadeduserid = rootState.auth.userId;
+      //const loadeduserid = rootState.auth.userId;
       const idToken = rootState.auth.idToken;
       axios.post('/feed/updateuserrole', {
-        keresid:loadeduserid,
+        //keresid:loadeduserid,
         role:formData.role,  
         vendor:formData.vendor,        
+        orgname:formData.orgname, 
+        orgtaxnumber:formData.orgtaxnumber,
+        lastname:formData.lastname,
+        firstname:formData.firstname,
+        orgcity:formData.orgcity,
+        orgstreet:formData.orgstreet,
+        orgzipcode:formData.orgzipcode,
+        orgother:formData.orgother,
+        orgphone:formData.orgphone,
       },
       {headers: {
               'Authorization': 'Bearer '+ idToken,
@@ -106,6 +115,7 @@ const actions = {
         commit('updateroles', {
           lddrole:response.data.posts.role,
           lddvendor:response.data.posts.vendor,
+          
         }); //így kell írni, ha egyszerre több adat van (objektumban)
         //commit('setlddrole', response.data.posts.role); így kell írni, ha csak egy adat van
         
