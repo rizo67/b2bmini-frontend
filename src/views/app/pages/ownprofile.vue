@@ -1040,7 +1040,7 @@ data() {
   },
   
   computed: {
-    ...mapGetters(['lddusername', 'lddcompanyname', 'lddrole', 'idToken', 'userId', 'organizationid']),
+    ...mapGetters(['lddusername', 'lddcompanyname', 'lddrole', 'idToken', 'userId', 'organizationid', 'messageback']),
     
   },
 
@@ -1062,10 +1062,11 @@ watch: {
         return
      
         },
-        
         selected() {
-            this.chooserole();                 
+            this.setmodalswitch();                 
         },
+
+        messageback(){console.log('Sikeres regisztráció')},
 
 },        
 
@@ -1143,6 +1144,36 @@ watch: {
             console.log(this.orgcity, this.orgstreet, this.orgzipcode, this.orgother, this.orgphone);
             //this.$bvModal.hide('modal-1');
       },
+
+    setmodalswitch() {
+       switch(this.selected) {
+            case"A": //szállító
+                this.visiblea =true;
+                this.visibleb =false;
+                this.visiblec =false;
+                this.visibled =false;
+            break;
+            case "B": //magánvásárló
+                this.visiblea =false;
+                this.visibleb =true;
+                this.visiblec =false;
+                this.visibled =false;
+             break;
+            case "C": //céges vevő
+                this.visiblea =false;
+                this.visibleb =false;
+                this.visiblec =true;
+                this.visibled =false;
+            break; 
+            case "D": //piactér üzemeltető
+                this.visiblea =false;
+                this.visibleb =false;
+                this.visiblec =false;
+                this.visibled =true;
+            break;  
+            }
+          },
+
 
     kuldes(){
         this.lddrole = "used";

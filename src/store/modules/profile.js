@@ -5,6 +5,7 @@ const state = {
     lddcompanyname: null, //loaded company name belong to user
     lddrole:null,
     lddvendor:null,
+    uzenet:"",
   };
 
 const mutations = {
@@ -16,6 +17,7 @@ const mutations = {
     updateroles: (state, payload) => {
       state.lddrole = payload.lddrole
       state.lddvendor = payload.lddvendor
+      state.uzenet = payload.uzenet
     },
     //setlddrole: (state, payload) => {state.lddrole = payload;},
   };
@@ -115,10 +117,13 @@ const actions = {
         commit('updateroles', {
           lddrole:response.data.posts.role,
           lddvendor:response.data.posts.vendor,
+          uzenet: response.data.message,
+          
+                
           
         }); //így kell írni, ha egyszerre több adat van (objektumban)
         //commit('setlddrole', response.data.posts.role); így kell írni, ha csak egy adat van
-        
+        console.log(uzenet)
                   
       })      
       .catch(function (error) {
@@ -134,6 +139,7 @@ const getters = {
     lddusername: state => state.lddusername,
     lddcompanyname: state => state.lddcompanyname,
     lddrole: state => state.lddrole,
+    messageback: state => state.uzenet,
   };
   
 
